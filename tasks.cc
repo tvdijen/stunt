@@ -1991,7 +1991,8 @@ read_task_queue(void)
 	return 0;
     }
     for (; count > 0; count--) {
-	int first_lineno, id, old_size, st;
+	int first_lineno, id, st;
+	unsigned old_size;
 	char c;
 	struct timeval start_tv;
 	Program *program;
