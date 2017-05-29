@@ -609,7 +609,7 @@ read_values_pending_finalization(void)
 static void
 main_loop(void)
 {
-    int i, res;
+    int i;
 
     /* First, queue anonymous objects */
     for (i = 1; i <= pending_list.v.list[0].v.num; i++) {
@@ -680,7 +680,7 @@ main_loop(void)
 
 	recycle_anonymous_objects();
 
-	res = network_process_io(useconds_left);
+	network_process_io(useconds_left);
 
 	run_ready_tasks();
 
