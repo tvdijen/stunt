@@ -174,14 +174,10 @@ aux_free(Var v)
 void
 complex_free_var(Var v)
 {
-    switch ((int) v.type) {
+    switch (v.type) {
     case TYPE_STR:
 	if (v.v.str)
 	    free_str(v.v.str);
-	break;
-    case TYPE_FLOAT:
-	if (delref(v.v.fnum) == 0)
-	    myfree(v.v.fnum, M_FLOAT);
 	break;
     case TYPE_LIST:
 	if (delref(v.v.list) == 0) {
@@ -238,20 +234,18 @@ complex_free_var(Var v)
 	    }
 	}
 	break;
+    default:
+        break;
     }
 }
 #else
 void
 complex_free_var(Var v)
 {
-    switch ((int) v.type) {
+    switch (v.type) {
     case TYPE_STR:
 	if (v.v.str)
 	    free_str(v.v.str);
-	break;
-    case TYPE_FLOAT:
-	if (delref(v.v.fnum) == 0)
-	    myfree(v.v.fnum, M_FLOAT);
 	break;
     case TYPE_LIST:
 	if (delref(v.v.list) == 0)
@@ -280,6 +274,8 @@ complex_free_var(Var v)
 	    }
 	}
 	break;
+    default:
+        break;
     }
 }
 #endif
@@ -289,12 +285,9 @@ complex_free_var(Var v)
 Var
 complex_var_ref(Var v)
 {
-    switch ((int) v.type) {
+    switch (v.type) {
     case TYPE_STR:
 	addref(v.v.str);
-	break;
-    case TYPE_FLOAT:
-	addref(v.v.fnum);
 	break;
     case TYPE_LIST:
 	addref(v.v.list);
@@ -312,6 +305,8 @@ complex_var_ref(Var v)
 		gc_set_color(v.v.anon, GC_BLACK);
 	}
 	break;
+    default:
+        break;
     }
     return v;
 }
@@ -319,12 +314,9 @@ complex_var_ref(Var v)
 Var
 complex_var_ref(Var v)
 {
-    switch ((int) v.type) {
+    switch (v.type) {
     case TYPE_STR:
 	addref(v.v.str);
-	break;
-    case TYPE_FLOAT:
-	addref(v.v.fnum);
 	break;
     case TYPE_LIST:
 	addref(v.v.list);
@@ -339,6 +331,8 @@ complex_var_ref(Var v)
 	if (v.v.anon)
 	    addref(v.v.anon);
 	break;
+    default:
+        break;
     }
     return v;
 }
@@ -347,12 +341,9 @@ complex_var_ref(Var v)
 Var
 complex_var_dup(Var v)
 {
-    switch ((int) v.type) {
+    switch (v.type) {
     case TYPE_STR:
 	v.v.str = str_dup(v.v.str);
-	break;
-    case TYPE_FLOAT:
-	v = new_float(*v.v.fnum);
 	break;
     case TYPE_LIST:
 	v = list_dup(v);
@@ -366,6 +357,8 @@ complex_var_dup(Var v)
     case TYPE_ANON:
 	panic("cannot var_dup() anonymous objects\n");
 	break;
+    default:
+        break;
     }
     return v;
 }
@@ -376,7 +369,7 @@ complex_var_dup(Var v)
 int
 var_refcount(Var v)
 {
-    switch ((int) v.type) {
+    switch (v.type) {
     case TYPE_STR:
 	return refcount(v.v.str);
 	break;
@@ -389,12 +382,11 @@ var_refcount(Var v)
     case TYPE_ITER:
 	return refcount(v.v.trav);
 	break;
-    case TYPE_FLOAT:
-	return refcount(v.v.fnum);
-	break;
     case TYPE_ANON:
 	if (v.v.anon)
 	    return refcount(v.v.anon);
+	break;
+    default:
 	break;
     }
     return 1;
@@ -404,7 +396,7 @@ int
 is_true(Var v)
 {
     return ((v.type == TYPE_INT && v.v.num != 0)
-	    || (v.type == TYPE_FLOAT && *v.v.fnum != 0.0)
+	    || (v.type == TYPE_FLOAT && v.v.fnum != 0.0)
 	    || (v.type == TYPE_STR && v.v.str && *v.v.str != '\0')
 	    || (v.type == TYPE_LIST && v.v.list[0].v.num != 0)
 	    || (v.type == TYPE_MAP && !mapempty(v)));
@@ -437,7 +429,7 @@ compare(Var lhs, Var rhs, int case_matters)
 	    if (lhs.v.fnum == rhs.v.fnum)
 		return 0;
 	    else
-		return *(lhs.v.fnum) - *(rhs.v.fnum);
+		return lhs.v.fnum - rhs.v.fnum;
 	default:
 	    panic("COMPARE: Invalid value type");
 	}
@@ -471,7 +463,7 @@ equality(Var lhs, Var rhs, int case_matters)
 	    if (lhs.v.fnum == rhs.v.fnum)
 		return 1;
 	    else
-		return *(lhs.v.fnum) == *(rhs.v.fnum);
+		return lhs.v.fnum == rhs.v.fnum;
 	case TYPE_LIST:
 	    return listequal(lhs, rhs, case_matters);
 	case TYPE_MAP:

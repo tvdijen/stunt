@@ -189,12 +189,10 @@ restart:
 	touch restart
 
 configure: configure.ac
-	# autoconf
-	@echo "Not running autoconf; you must do this by hand."
-	touch configure
+	autoconf
 
 config.status: configure
-	env CC= YACC= ./configure --no-create
+	./config.status --recheck || ./configure --no-create
 
 Makefile: Makefile.in config.status
 	@echo "[ $@ : $? ]"

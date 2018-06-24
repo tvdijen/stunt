@@ -47,6 +47,8 @@ AC_PROG_CC_STDC
 AC_HEADER_CHECK(sys/bsdtypes.h, AC_DEFINE(NEED_BSDTYPES_H))
 AC_HEADER_CHECK(sys/select.h, AC_DEFINE(NEED_SELECT_H))
 AC_HEADER_CHECK(memory.h, AC_DEFINE(NEED_MEMORY_H))
+AC_HEADER_CHECK(inttypes.h, AC_DEFINE(NEED_INTTYPES_H))
+AC_HEADER_CHECK(stdint.h, AC_DEFINE(NEED_STDINT_H))
 AC_PID_T
 AC_MODE_T
 AC_SIZE_T
@@ -63,11 +65,16 @@ AC_SEARCH_LIBS([crypt], [crypt crypt_d])
 AC_HAVE_HEADERS(unistd.h sys/cdefs.h stdlib.h tiuser.h machine/endian.h)
 AC_HAVE_FUNCS(remove rename poll select strerror strftime strtoul matherr)
 AC_HAVE_FUNCS(random lrand48 waitpid wait3 wait2 sigsetmask sigprocmask sigrelse)
+AC_HAVE_FUNCS(strtoimax)
 MOO_NDECL_FUNCS(ctype.h, tolower)
 MOO_NDECL_FUNCS(fcntl.h, fcntl)
 MOO_NDECL_FUNCS(netinet/in.h, htonl)
 dnl *** this next should really be some variety of AC_CHECK_TYPE
 dnl *** but this is just a grep test anyway   --wrog
+AC_CHECK_TYPES(long long)
+AC_CHECK_TYPES(uint8_t)
+AC_CHECK_TYPES(int32_t)
+AC_CHECK_TYPES(int64_t)
 MOO_NDECL_VARS(netinet/in.h, in_addr_t)
 MOO_NDECL_FUNCS(sys/ioctl.h, ioctl)
 MOO_NDECL_FUNCS(poll.h, poll)

@@ -361,6 +361,30 @@ no_var_pack(void)
 }
 
 package
+make_int_pack(Num v)
+{
+    package p;
+
+    p.kind = package::BI_RETURN;
+    p.u.ret.type = TYPE_INT;
+    p.u.ret.v.num = v;
+
+    return p;
+}
+
+package
+make_float_pack(double v)
+{
+    package p;
+
+    p.kind = package::BI_RETURN;
+    p.u.ret.type = TYPE_FLOAT;
+    p.u.ret.v.fnum = v;
+
+    return p;
+}
+
+package
 make_call_pack(Byte pc, void *data)
 {
     package p;
@@ -451,7 +475,7 @@ load_server_protect_function_flags(void)
     oklog("Loaded protect cache for %d builtin functions\n", i);
 }
 
-int32 _server_int_option_cache[SVO__CACHE_SIZE];
+int32_t _server_int_option_cache[SVO__CACHE_SIZE];
 
 void
 load_server_options(void)

@@ -92,7 +92,7 @@ fill_in_rt_consts(Var * env, DB_Version version)
     if (version >= DBV_Float) {
 	v.v.num = (int) TYPE_INT;
 	env[SLOT_INT] = var_ref(v);
-	v.v.num = (int) _TYPE_FLOAT;
+	v.v.num = (int) TYPE_FLOAT;
 	env[SLOT_FLOAT] = var_ref(v);
     }
     if (version >= DBV_Map) {

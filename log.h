@@ -25,8 +25,8 @@ extern void set_log_file(FILE *);
 enum {LOG_NONE, LOG_INFO1, LOG_INFO2, LOG_INFO3, LOG_INFO4,
       LOG_NOTICE, LOG_WARNING, LOG_ERROR};
 
-extern void oklog(const char *,...);
-extern void errlog(const char *,...);
+extern void oklog(const char *,...) FORMAT(printf, 1, 2);
+extern void errlog(const char *,...) FORMAT(printf, 1, 2);
 extern void applog(int, const char *,...);
 extern void log_perror(const char *);
 
@@ -36,5 +36,5 @@ extern void add_command_to_history(Objid player, const char *command);
 
 #define log_report_progress() ((--log_pcount <= 0) && log_report_progress_cktime())
 
-extern int log_report_progress_cktime();
+extern int log_report_progress_cktime(void);
 extern int log_pcount;

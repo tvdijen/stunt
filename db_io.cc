@@ -19,11 +19,13 @@
  * Routines for use by non-DB modules with persistent state stored in the DB
  *****************************************************************************/
 
+#include "config.h"
 #include "my-ctype.h"
 #include <float.h>
 #include "my-stdarg.h"
 #include "my-stdio.h"
 #include "my-stdlib.h"
+#include "my-string.h"
 
 #include "db.h"
 #include "db_io.h"
@@ -40,7 +42,6 @@
 #include "str_intern.h"
 #include "unparse.h"
 #include "version.h"
-
 
 /*********** Input ***********/
 
@@ -66,64 +67,7 @@ dbio_scanf(const char *format,...)
     const char *ptr;
 
     va_start(args, format);
-    /* The following line would be nice, but unfortunately those darlings on
-     * the ANSI C committee apparently didn't feel it worthwhile to include
-     * support for functions wrapping `scanf' *even though* they included
-     * symmetric such support for functions wrapping `printf'.  (*sigh*)
-     * Fortunately, we only use a small fraction of the full functionality of
-     * scanf in the server, so it's not unbearably unpleasant to have to
-     * reimplement it here.
-     */
-    /*  count = vfscanf(input, format, args);  */
-
-    count = 0;
-    for (ptr = format; *ptr; ptr++) {
-	int c, n, *ip;
-	unsigned *up;
-	char *cp;
-
-	if (isspace(*ptr)) {
-	    do
-		c = fgetc(input);
-	    while (isspace(c));
-	    ungetc(c, input);
-	} else if (*ptr != '%') {
-	    do
-		c = fgetc(input);
-	    while (isspace(c));
-
-	    if (c == EOF)
-		return count ? count : EOF;
-	    else if (c != *ptr) {
-		ungetc(c, input);
-		return count;
-	    }
-	} else
-	    switch (*++ptr) {
-	    case 'd':
-		ip = va_arg(args, int *);
-		n = fscanf(input, "%d", ip);
-		goto finish;
-	    case 'u':
-		up = va_arg(args, unsigned *);
-		n = fscanf(input, "%u", up);
-		goto finish;
-	    case 'c':
-		cp = va_arg(args, char *);
-		n = fscanf(input, "%c", cp);
-	      finish:
-		if (n == 1)
-		    count++;
-		else if (n == 0)
-		    return count;
-		else		/* n == EOF */
-		    return count ? count : EOF;
-		break;
-	    default:
-		panic("DBIO_SCANF: Unsupported directive!");
-	    }
-    }
-
+    count = vfscanf(input, format, args);
     va_end(args);
 
     return count;
@@ -232,8 +176,8 @@ dbio_read_var(void)
     case TYPE_FINALLY:
 	r.v.num = dbio_read_num();
 	break;
-    case _TYPE_FLOAT:
-	r = new_float(dbio_read_float());
+    case TYPE_FLOAT:
+	r.v.fnum = dbio_read_float();
 	break;
     case _TYPE_MAP:
 	l = dbio_read_num();
@@ -326,7 +270,6 @@ dbio_read_program(DB_Version version, const char *(*fmtr) (void *), void *data)
     s.data = data;
     return parse_program(version, parser_client, &s);
 }
-
 
 /*********** Output ***********/
 
@@ -419,7 +362,7 @@ dbio_write_var(Var v)
 	dbio_write_num(v.v.num);
 	break;
     case TYPE_FLOAT:
-	dbio_write_float(*v.v.fnum);
+	dbio_write_float(v.v.fnum);
 	break;
     case TYPE_MAP:
         dbio_write_num(maplength(v));

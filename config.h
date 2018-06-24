@@ -1,3 +1,4 @@
+/* config.h.  Generated from config.h.in by configure.  */
 
 /******************************************************************************
   Copyright (c) 1992, 1995, 1996 Xerox Corporation.  All rights reserved.
@@ -31,13 +32,13 @@
  * following is defined, then your system is one such.
  */
 
-#undef _ALL_SOURCE
-#undef _POSIX_SOURCE
-#undef _MINIX
-#undef _POSIX_1_SOURCE
-#undef _HPUX_SOURCE
-#undef _XOPEN_SOURCE
-#undef _GNU_SOURCE
+#define _ALL_SOURCE 1
+/* #undef _POSIX_SOURCE */
+/* #undef _MINIX */
+/* #undef _POSIX_1_SOURCE */
+/* #undef _HPUX_SOURCE */
+/* #undef _XOPEN_SOURCE */
+#define _GNU_SOURCE 1
 
 /* The following symbols describe whether or not certain functions are declared
  * in header files on your system and, if so, where.  If, on your system, the
@@ -54,71 +55,71 @@
  * absence of declarations for several other related functions or variables.
  */
 
-#undef NEED_MEMORY_H
-#undef NEED_MALLOC_H
-#undef NEED_BSDTYPES_H
-#undef NEED_SELECT_H
+#define NEED_MEMORY_H 1
+/* #undef NEED_MALLOC_H */
+/* #undef NEED_BSDTYPES_H */
+#define NEED_SELECT_H 1
 
-#undef NDECL_TOLOWER		/* <ctype.h>      */
-#undef NDECL_FCNTL		/* <fcntl.h>      */
-#undef NDECL_HTONL		/* <netinet/in.h> */
-#undef NDECL_IN_ADDR_T		/* <netinet/in.h> */
-#undef NDECL_IOCTL		/* <sys/ioctl.h>  */
-#undef NDECL_POLL		/* <poll.h>	  */
-#undef NDECL_KILL		/* <signal.h>	  */
-#undef NDECL_SIGEMPTYSET	/* <signal.h>	  */
-#undef NDECL_SIGPROCMASK	/* <signal.h>	  */
-#undef NDECL_SIGRELSE		/* <signal.h>	  */
-#undef NDECL_ACCEPT		/* <sys/socket.h> */
-#undef NDECL_BIND		/* <sys/socket.h> */
-#undef NDECL_SHUTDOWN		/* <sys/socket.h> */
-#undef NDECL_FSTAT		/* <sys/stat.h>	  */
-#undef NDECL_FCLOSE		/* <stdio.h>	  */
-#undef NDECL_PERROR		/* <stdio.h>	  */
-#undef NDECL_REMOVE		/* <stdio.h>	  */
-#undef NDECL_VFPRINTF		/* <stdio.h>	  */
-#undef NDECL_RANDOM		/* <stdlib.h>	  */
-#undef NDECL_SRANDOM		/* <stdlib.h>	  */
-#undef NDECL_STRTOD		/* <stdlib.h>	  */
-#undef NDECL_STRTOL		/* <stdlib.h>	  */
-#undef NDECL_STRTOUL		/* <stdlib.h>	  */
-#undef NDECL_BZERO		/* <string.h>	  */
-#undef NDECL_MEMCPY		/* <string.h>	  */
-#undef NDECL_MEMSET		/* <string.h>	  */
-#undef NDECL_STRERROR		/* <string.h>	  */
-#undef NDECL_GETITIMER		/* <sys/time.h>	  */
-#undef NDECL_SETITIMER		/* <sys/time.h>	  */
-#undef NDECL_SELECT		/* <sys/time.h>	  */
-#undef NDECL_STRFTIME		/* <time.h>	  */
-#undef NDECL_TIME		/* <time.h>	  */
-#undef NDECL_TZNAME		/* <time.h>	  */
-#undef NDECL_T_OPEN		/* <tiuser.h>	  */
-#undef NDECL_T_ERRLIST		/* <tiuser.h>	  */
-#undef NDECL_FORK		/* <unistd.h>	  */
-#undef NDECL_WAITPID		/* <sys/wait.h>	  */
+/* #undef NDECL_TOLOWER */
+/* #undef NDECL_FCNTL */
+/* #undef NDECL_HTONL */
+/* #undef NDECL_IN_ADDR_T */
+/* #undef NDECL_IOCTL */
+/* #undef NDECL_POLL */
+/* #undef NDECL_KILL */
+/* #undef NDECL_SIGEMPTYSET */
+/* #undef NDECL_SIGPROCMASK */
+/* #undef NDECL_SIGRELSE */
+/* #undef NDECL_ACCEPT */
+/* #undef NDECL_BIND */
+/* #undef NDECL_SHUTDOWN */
+/* #undef NDECL_FSTAT */
+/* #undef NDECL_FCLOSE */
+/* #undef NDECL_PERROR */
+/* #undef NDECL_REMOVE */
+/* #undef NDECL_VFPRINTF */
+/* #undef NDECL_RANDOM */
+/* #undef NDECL_SRANDOM */
+/* #undef NDECL_STRTOD */
+/* #undef NDECL_STRTOL */
+/* #undef NDECL_STRTOUL */
+/* #undef NDECL_BZERO */
+/* #undef NDECL_MEMCPY */
+/* #undef NDECL_MEMSET */
+/* #undef NDECL_STRERROR */
+/* #undef NDECL_GETITIMER */
+/* #undef NDECL_SETITIMER */
+/* #undef NDECL_SELECT */
+/* #undef NDECL_STRFTIME */
+/* #undef NDECL_TIME */
+/* #undef NDECL_TZNAME */
+/* #undef NDECL_T_OPEN */
+/* #undef NDECL_T_ERRLIST */
+/* #undef NDECL_FORK */
+/* #undef NDECL_WAITPID */
 
 /* Some systems declare bzero() in <stdlib.h> instead of in <string.h>. */
 
-#undef BZERO_IN_STDLIB_H
+/* #undef BZERO_IN_STDLIB_H */
 
 /* Some header files are only present on certain kinds of UNIXes (e.g., BSD,
  * System V, or POSIX).  The following symbols are defined only if the named
  * header file exists on your system.
  */
 
-#undef HAVE_MACHINE_ENDIAN_H
-#undef HAVE_STDLIB_H
-#undef HAVE_SYS_CDEFS_H
-#undef HAVE_UNISTD_H
+/* #undef HAVE_MACHINE_ENDIAN_H */
+#define HAVE_STDLIB_H 1
+#define HAVE_SYS_CDEFS_H 1
+#define HAVE_UNISTD_H 1
 
 /* Some POSIX-standard typedefs are not present in some systems.  The following
  * symbols are defined as aliases for their usual definitions if they are not
  * defined on your system.
  */
 
-#undef pid_t
-#undef mode_t
-#undef size_t
+/* #undef pid_t */
+/* #undef mode_t */
+/* #undef size_t */
 
 /* To implement the LambdaMOO built-in function `ctime()', which converts a
  * number of seconds since the POSIX `epoch' into a human-readable time/date
@@ -131,10 +132,10 @@
  * information on your system.
  */
 
-#undef HAVE_STRFTIME
-#undef TM_IN_SYS_TIME
-#undef HAVE_TM_ZONE
-#undef HAVE_TZNAME
+#define HAVE_STRFTIME 1
+/* #undef TM_IN_SYS_TIME */
+#define HAVE_TM_ZONE 1
+/* #undef HAVE_TZNAME */
 
 /* Some compilers `almost' conform to the ANSI C standard, in that they provide
  * the vast majority of the features and constructs used by the server code,
@@ -144,7 +145,7 @@
  * eliding all uses of the keyword in the code.
  */
 
-#undef const
+/* #undef const */
 
 /* Some sites have installed GCC improperly or incompletely, thereby requiring
  * the server to be compiled with the `-traditional' switch.  That disables the
@@ -175,32 +176,32 @@
  * system provides the named functions.
  */
 
-#undef HAVE_CRYPT
-#undef HAVE_MATHERR
-#undef HAVE_MKFIFO
-#undef HAVE_REMOVE
-#undef HAVE_RENAME
-#undef HAVE_SELECT
-#undef HAVE_POLL
-#undef HAVE_STRERROR
-#undef HAVE_STRTOUL
-#undef HAVE_RANDOM
-#undef HAVE_LRAND48
-#undef HAVE_WAITPID
-#undef HAVE_WAIT2
-#undef HAVE_WAIT3
-#undef HAVE_SIGEMPTYSET
-#undef HAVE_SIGPROCMASK
-#undef HAVE_SIGSETMASK
-#undef HAVE_SIGRELSE
+#define HAVE_CRYPT 1
+#define HAVE_MATHERR 1
+#define HAVE_MKFIFO 1
+#define HAVE_REMOVE 1
+#define HAVE_RENAME 1
+#define HAVE_SELECT 1
+#define HAVE_POLL 1
+#define HAVE_STRERROR 1
+#define HAVE_STRTOUL 1
+#define HAVE_RANDOM 1
+#define HAVE_LRAND48 1
+#define HAVE_WAITPID 1
+/* #undef HAVE_WAIT2 */
+#define HAVE_WAIT3 1
+/* #undef HAVE_SIGEMPTYSET */
+#define HAVE_SIGPROCMASK 1
+#define HAVE_SIGSETMASK 1
+#define HAVE_SIGRELSE 1
 
 /* A good source of randomness is a prerequisite for many things,
  * including secure crypto.  The following two symbols are defined if
  * your system provides a random device.
  */
 
-#undef HAVE_RANDOM_DEVICE
-#undef RANDOM_DEVICE
+#define HAVE_RANDOM_DEVICE 1
+#define RANDOM_DEVICE "/dev/random"
 
 /* It used to be very much the fashion in UNIX programming to make use of
  * certain standard header files depend on the programmer having #include'd
@@ -213,11 +214,11 @@
  * its own #include of the usual prerequisite.
  */
 
-#undef ARPA_INET_H_NEEDS_HELP
-#undef SIGNAL_H_NEEDS_HELP
-#undef SYS_SOCKET_H_NEEDS_HELP
-#undef SYS_STAT_H_NEEDS_HELP
-#undef TIME_H_NEEDS_HELP
+/* #undef ARPA_INET_H_NEEDS_HELP */
+/* #undef SIGNAL_H_NEEDS_HELP */
+/* #undef SYS_SOCKET_H_NEEDS_HELP */
+/* #undef SYS_STAT_H_NEEDS_HELP */
+/* #undef TIME_H_NEEDS_HELP */
 
 /* Version 2 of the GNU C compiler includes `built-in' declarations for a
  * number of standard functions from the ANSI header file <string.h>.
@@ -228,7 +229,7 @@
  * <string.h> file, using its own version instead.
  */
 
-#undef USE_OWN_STRING_H
+/* #undef USE_OWN_STRING_H */
 
 /* On some systems, notably AIX, both <sys/ioctl.h> and <stropts.h> define the
  * internal macro `_IO' in compatible but different ways.  This means that no
@@ -237,7 +238,7 @@
  * will carefully #undef _IO between inclusions of the two files.
  */
 
-#undef UNDEF_IO_IN_STROPTS_H
+#define UNDEF_IO_IN_STROPTS_H 1
 
 /* The NS_SYSV/NP_LOCAL networking configuration of the server makes use of an
  * operating system feature called `FIFO's for communication with clients of
@@ -254,9 +255,9 @@
  * system.
  */
 
-#undef FSTAT_WORKS_ON_FIFOS
-#undef POLL_WORKS_ON_FIFOS
-#undef SELECT_WORKS_ON_FIFOS
+/* #undef FSTAT_WORKS_ON_FIFOS */
+#define POLL_WORKS_ON_FIFOS 1
+/* #undef SELECT_WORKS_ON_FIFOS */
 
 /* The POSIX standard specifies a nice, simple, reliable method for performing
  * non-blocking I/O, and a lot of systems actually implement it.  Some systems,
@@ -266,21 +267,21 @@
  * your system.
  */
 
-#undef POSIX_NONBLOCKING_WORKS
+#define POSIX_NONBLOCKING_WORKS 1
 
 /*
  * The following code figures out how to express a 32- and 64-bit integer
  * types on your machine.
  */
  
-#undef HAVE_LONG_LONG
-#undef HAVE_INT32_T
-#undef HAVE_INT64_T
+#define HAVE_LONG_LONG 1
+#define HAVE_INT32_T 1
+#define HAVE_INT64_T 1
 
-#undef HAVE_STRTOIMAX
+#define HAVE_STRTOIMAX 1
 
-#undef NEED_STDINT_H
-#undef NEED_INTTYPES_H
+#define NEED_STDINT_H 1
+#define NEED_INTTYPES_H 1
 
 #ifdef NEED_INTTYPES_H
 # include <inttypes.h>
@@ -374,7 +375,7 @@
 #endif
 
 /* 8-bit bytes */
-#undef HAVE_UINT8_T
+#define HAVE_UINT8_T 1
 
 #ifndef HAVE_UINT8_T
 typedef unsigned char uint8_t;

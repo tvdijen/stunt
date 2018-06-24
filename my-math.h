@@ -19,8 +19,13 @@
 #define Math_h 1
 
 #include <float.h>
+#include <limits.h>
 #include <math.h>
 
-#define IS_REAL(x)	(-DBL_MAX <= (x) && (x) <= DBL_MAX)
+#define IS_REAL(x)	(-HUGE_VAL < (x) && (x) < HUGE_VAL)
+
+#ifndef DECIMAL_DIG
+# define DECIMAL_DIG (DBL_DIG+4)
+#endif
 
 #endif

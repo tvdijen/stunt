@@ -482,7 +482,6 @@ exit_loop(State * state)
 {
     return state->loops[--state->num_loops].bottom_label;
 }
-
 
 static void
 emit_call_verb_op(Opcode op, State * state)
@@ -1189,11 +1188,11 @@ max(unsigned a, unsigned b)
 }
 
 static unsigned
-ref_size(unsigned max)
+ref_size(unsigned rmax)
 {
-    if (max <= 256)
+    if (rmax <= 256)
 	return 1;
-    else if (max <= 256 * 256)
+    else if (rmax <= 256 * 256)
 	return 2;
     else
 	return 4;

@@ -27,13 +27,17 @@
 
 #include "storage.h"
 
-#define MAXINT	((int32) 2147483647L)
-#define MININT	((int32) -2147483648L)
+#define MAXINT	((int32_t) 2147483647L)
+#define MININT	((int32_t) -2147483648L)
 #define MAXOBJ	((Objid) MAXINT)
 #define MINOBJ	((Objid) MININT)
 
-typedef int32_t Num;
-typedef uint32_t UNum;
+/* Note: it's a pretty hard assumption in MOO that integers and objects
+   are the same data type. */
+typedef int64_t Num;
+typedef uint64_t UNum;
+#define PRIdN	PRId64
+#define SCNdN	SCNd64
 typedef Num Objid;
 
 /*
@@ -79,13 +83,12 @@ typedef enum {
     TYPE_NONE,			/* in uninitialized MOO variables */
     TYPE_CATCH,			/* on-stack marker for an exception handler */
     TYPE_FINALLY,		/* on-stack marker for a TRY-FINALLY clause */
-    _TYPE_FLOAT,		/* floating-point number; user-visible */
+    TYPE_FLOAT,			/* floating-point number; user-visible */
     _TYPE_MAP,			/* map; user-visible */
     _TYPE_ITER,			/* map iterator; not visible */
     _TYPE_ANON,			/* anonymous object; user-visible */
     /* THE END - complex aliases come next */
     TYPE_STR = (_TYPE_STR | TYPE_COMPLEX_FLAG),
-    TYPE_FLOAT = (_TYPE_FLOAT | TYPE_COMPLEX_FLAG),
     TYPE_LIST = (_TYPE_LIST | TYPE_COMPLEX_FLAG),
     TYPE_MAP = (_TYPE_MAP | TYPE_COMPLEX_FLAG),
     TYPE_ITER = (_TYPE_ITER | TYPE_COMPLEX_FLAG),
@@ -124,13 +127,13 @@ typedef struct Object Object;
 struct Var {
     union {
 	const char *str;	/* STR */
-	int32 num;		/* NUM, CATCH, FINALLY */
+	Num num;		/* NUM, CATCH, FINALLY */
 	Objid obj;		/* OBJ */
 	enum error err;		/* ERR */
 	Var *list;		/* LIST */
 	rbtree *tree;		/* MAP */
 	rbtrav *trav;		/* ITER */
-	double *fnum;		/* FLOAT */
+	double fnum;		/* FLOAT */
 	Object *anon;		/* ANON */
     } v;
     var_type type;
@@ -164,7 +167,7 @@ struct Var {
     }
 
     static Var
-    new_int(int32 num) {
+    new_int(Num num) {
 	Var v;
 	v.type = TYPE_INT;
 	v.v.num = num;
