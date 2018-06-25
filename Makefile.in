@@ -16,11 +16,12 @@
 CC = @CC@
 CXX = @CXX@
 CCAS = @CCAS@
-LIBRARIES = @LIBS@
+LIBS = ucd/libucd.a @LIBS@
 YACC = @YACC@
 
-CFLAGS = -g -O -Wall
-CXXFLAGS = -g -O -Wall
+CFLAGS = -Iucd @CFLAGS@
+CXXFLAGS = @CXXFLAGS@
+LDFLAGS = @LDFLAGS@
 # If you're using GCC, you may prefer:
 # CFLAGS = -O2 -finline-functions
 #
@@ -53,7 +54,7 @@ CSRCS = http_parser.c regexpr.c yajl/yajl.c yajl/yajl_alloc.c \
 	nettle/sha384-meta.c nettle/sha512.c nettle/sha512-compress.c \
 	nettle/sha512-meta.c nettle/write-be32.c nettle/write-le32.c \
 	nettle/write-le64.c crypt/crypt_blowfish.c \
-	crypt/crypt_gensalt.c sosemanuk.c linenoise.c
+	crypt/crypt_gensalt.c sosemanuk.c linenoise.c utf.c utf-ctype.c
 
 CXXSRCS = ast.cc base64.cc code_gen.cc collection.cc crypto.cc \
 	db_file.cc db_io.cc db_objects.cc db_properties.cc \
@@ -92,7 +93,7 @@ HDRS = ast.h base64.h bf_register.h code_gen.h collection.h crypto.h \
 	nettle/macros.h nettle/md5.h nettle/memxor.h \
 	nettle/nettle-meta.h nettle/nettle-types.h \
 	nettle/nettle-write.h nettle/ripemd160.h nettle/sha1.h \
-	nettle/sha2.h sosemanuk.h linenoise.h
+	nettle/sha2.h sosemanuk.h linenoise.h utf.h
 
 SYSHDRS = my-ctype.h my-fcntl.h my-in.h my-inet.h my-ioctl.h my-math.h \
 	my-poll.h my-signal.h my-socket.h my-stat.h my-stdarg.h my-stdio.h \
@@ -118,8 +119,12 @@ YOBJS = $(YSRCS:.y=.o)
 
 OBJS = $(COBJS) $(CXXOBJS) $(YOBJS) crypt/x86.o
 
+all:
+	cd ucd && $(MAKE) all
+	$(MAKE) moo
+
 moo:	$(OBJS)
-	$(CXX) $(CFLAGS) $(OBJS) $(LIBRARIES) -o $@
+	$(CXX) $(LDFLAGS) $(OBJS) $(LIBS) -o $@
 
 crypt/x86.o: crypt/x86.S
 	$(CCAS) $(ASFLAGS) $< -o $@
@@ -131,10 +136,10 @@ parser.o: parser.y
 	rm parser.c
 
 client_bsd: client_bsd.o
-	$(CXX) $(CFLAGS) client_bsd.o $(LIBRARIES) -o $@
+	$(CXX) $(LDFLAGS) client_bsd.o $(LIBS) -o $@
 
 client_sysv: client_sysv.o
-	$(CXX) $(CFLAGS) client_sysv.o $(LIBRARIES) -o $@
+	$(CXX) $(LDFLAGS) client_sysv.o $(LIBS) -o $@
 
 doc: ${DOCS}
 
@@ -238,6 +243,7 @@ clean:
 	rm -f ProgrammersManual.log ProgrammersManual.aux ProgrammersManual.toc
 	rm -f ProgrammersManual.fns
 	rm -f ProgrammersManual.tmp
+	cd ucd && $(MAKE) clean
 
 distclean:	clean
 	rm -f config.h Makefile config.status
